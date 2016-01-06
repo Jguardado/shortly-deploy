@@ -38,13 +38,16 @@ module.exports = function(grunt) {
     },
 
     jshint: {
+      
+      files: {
+        src: ['public/client/*.js']
+      },
       options: {
         force: 'true',
-        jshintrc: '.jshintrc'
-      },
-      files: {
-        src: ['/public/dist/*.js']
-      },
+        jshintrc: '.jshintrc',
+        ignores: 
+          ['public/lib/**.js']
+      }
     },
 
     cssmin: {
@@ -119,7 +122,7 @@ module.exports = function(grunt) {
   grunt.registerTask('upload', function(n) {
     if(grunt.option('prod')) {
       // add your production server task here
-      ['concat', 'uglify', 'jshint', 'cssmin']
+      ['jshint', 'concat', 'uglify', 'cssmin']
     } else {
       grunt.task.run([ 'server-dev' ]);
     }
@@ -127,7 +130,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('deploy', [
       // add your production server task here
-      'concat', 'uglify', 'jshint', 'cssmin'
+      'jshint', 'concat', 'uglify', 'cssmin'
   ]);
 
 
